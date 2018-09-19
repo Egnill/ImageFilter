@@ -94,28 +94,28 @@
             // chanleToolStripMenuItem
             // 
             this.chanleToolStripMenuItem.Name = "chanleToolStripMenuItem";
-            this.chanleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.chanleToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.chanleToolStripMenuItem.Text = "Channle";
             this.chanleToolStripMenuItem.Click += new System.EventHandler(this.chanleToolStripMenuItem_Click);
             // 
             // blackWhiteToolStripMenuItem
             // 
             this.blackWhiteToolStripMenuItem.Name = "blackWhiteToolStripMenuItem";
-            this.blackWhiteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.blackWhiteToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.blackWhiteToolStripMenuItem.Text = "Black-White";
             this.blackWhiteToolStripMenuItem.Click += new System.EventHandler(this.blackWhiteToolStripMenuItem_Click);
             // 
             // sepiToolStripMenuItem
             // 
             this.sepiToolStripMenuItem.Name = "sepiToolStripMenuItem";
-            this.sepiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sepiToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.sepiToolStripMenuItem.Text = "Sepia";
             this.sepiToolStripMenuItem.Click += new System.EventHandler(this.sepiToolStripMenuItem_Click);
             // 
             // brightnessContrastToolStripMenuItem
             // 
             this.brightnessContrastToolStripMenuItem.Name = "brightnessContrastToolStripMenuItem";
-            this.brightnessContrastToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.brightnessContrastToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.brightnessContrastToolStripMenuItem.Text = "Brightness/Contrast";
             this.brightnessContrastToolStripMenuItem.Click += new System.EventHandler(this.brightnessContrastToolStripMenuItem_Click);
             // 
@@ -129,32 +129,33 @@
             // hSVToolStripMenuItem
             // 
             this.hSVToolStripMenuItem.Name = "hSVToolStripMenuItem";
-            this.hSVToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hSVToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.hSVToolStripMenuItem.Text = "HSV";
             this.hSVToolStripMenuItem.Click += new System.EventHandler(this.hSVToolStripMenuItem_Click);
             // 
             // medianBlurToolStripMenuItem
             // 
             this.medianBlurToolStripMenuItem.Name = "medianBlurToolStripMenuItem";
-            this.medianBlurToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.medianBlurToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.medianBlurToolStripMenuItem.Text = "Median Blur";
+            this.medianBlurToolStripMenuItem.Click += new System.EventHandler(this.medianBlurToolStripMenuItem_Click);
             // 
             // windowFilterToolStripMenuItem
             // 
             this.windowFilterToolStripMenuItem.Name = "windowFilterToolStripMenuItem";
-            this.windowFilterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.windowFilterToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.windowFilterToolStripMenuItem.Text = "Window Filter";
             // 
             // watercolorFilterToolStripMenuItem
             // 
             this.watercolorFilterToolStripMenuItem.Name = "watercolorFilterToolStripMenuItem";
-            this.watercolorFilterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.watercolorFilterToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.watercolorFilterToolStripMenuItem.Text = "Watercolor Filter";
             // 
             // cartoToolStripMenuItem
             // 
             this.cartoToolStripMenuItem.Name = "cartoToolStripMenuItem";
-            this.cartoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cartoToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.cartoToolStripMenuItem.Text = "Cartoon Filter";
             // 
             // menuStrip1

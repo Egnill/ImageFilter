@@ -117,5 +117,10 @@ namespace lab2
             hsv.Owner = this;
             hsv.Show();
         }
+
+        private void medianBlurToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            imageBox2.Image = m.Median_Blur();
+        }
     }
 }

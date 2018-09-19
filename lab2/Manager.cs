@@ -40,7 +40,7 @@ namespace lab2
                 //this.result = sourceImage;
             }
         }
-
+        // for Testing
         private byte test_color(double test)
         {
             if (test > 255)
@@ -68,14 +68,7 @@ namespace lab2
             }
             else
             {
-                if (test < 0)
-                {
-                    return 0;
-                }
-                else
-                {
-                    return (byte)test;
-                }
+                return (byte)test;
             }
         }
 
@@ -97,7 +90,7 @@ namespace lab2
                 }
             }
         }
-
+        //------------------------------------------
         private Image<Bgr, byte> DeNoise(Image<Bgr, byte> Noise_Image)
         {
             var tempImage = Noise_Image.PyrDown();
@@ -259,13 +252,13 @@ namespace lab2
             return result;
         }
 
-        public Image<Bgr, byte> HSV()
+        public Image<Hsv, byte> HSV()
         {
             Image<Hsv, byte> result = sourceImage.Convert<Hsv, byte>();
-            
-            for (byte x = 0; x < result.Width; x++)
+
+            for (int x = 0; x < result.Width; x++)
             {
-                for (byte y = 0; y < result.Height; y++)
+                for (int y = 0; y < result.Height; y++)
                 {
                     result.Data[y, x, 0] = test_value_hue(result.Data[y, x, 0] + hue);
                     result.Data[y, x, 1] = test_value_sat_val(result.Data[y, x, 1] + saturation);
@@ -273,7 +266,46 @@ namespace lab2
                 }
             }
 
-            return result.Convert<Bgr, byte>();
+            return result;
+        }
+
+        public Image<Bgr, byte> Median_Blur()
+        {
+            Image<Bgr, byte> result = sourceImage.Clone();
+            List<byte> helper_sort = new List<byte>();
+            byte middle_value = 0; ;
+
+            for (byte channel = 0; channel < result.NumberOfChannels; channel++)
+            {
+                for (int x = 1; x < result.Width - 1; x++)
+                {
+                    for (int y = 1; y < result.Height - 1; y++)
+                    {
+                        for (sbyte i = -1; i < 2; i++)
+                        {
+                            for (sbyte j = -1; j < 2; j++)
+                            {
+                                helper_sort.Add(result.Data[y + j, x + i, channel]);
+                            }
+                        }
+
+                        helper_sort.Sort();
+                        middle_value = helper_sort[4];
+
+                        for (sbyte i = -1; i < 1; i++)
+                        {
+                            for (sbyte j = -1; j < 1; j++)
+                            {
+                                result.Data[y + j, x + i, channel] = middle_value;
+                            }
+                        }
+
+                        helper_sort.Clear();
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }
