@@ -122,8 +122,8 @@
             // pEIToolStripMenuItem
             // 
             this.pEIToolStripMenuItem.Name = "pEIToolStripMenuItem";
-            this.pEIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.pEIToolStripMenuItem.Text = "AEI";
+            this.pEIToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.pEIToolStripMenuItem.Text = "Addition/Exception/Interseption";
             this.pEIToolStripMenuItem.Click += new System.EventHandler(this.pEIToolStripMenuItem_Click);
             // 
             // hSVToolStripMenuItem

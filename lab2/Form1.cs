@@ -54,6 +54,24 @@ namespace lab2
         {
             imageBox2.Image = m.Interseption(image);
         }
+
+        public void UP_Hue(int hue)
+        {
+            m.hue = hue;
+            imageBox2.Image = m.HSV();
+        }
+
+        public void UP_Saturation(int saturation)
+        {
+            m.saturation = saturation;
+            imageBox2.Image = m.HSV();
+        }
+
+        public void UP_Value(int value)
+        {
+            m.value = value;
+            imageBox2.Image = m.HSV();
+        }
         //-----------------------------------------
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -95,7 +113,9 @@ namespace lab2
 
         private void hSVToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            imageBox2.Image = m.HSV();
+            HSV hsv = new HSV();
+            hsv.Owner = this;
+            hsv.Show();
         }
     }
 }

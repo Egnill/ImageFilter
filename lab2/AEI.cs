@@ -29,21 +29,21 @@ namespace lab2
         {
             Form1 f = this.Owner as Form1;
             if (f != null)
-                f.UP_Addition(m.sourceImage);
+                f.UP_Addition(m.sourceImage.Clone());
         }
 
         private void Exception_Click(object sender, EventArgs e)
         {
             Form1 f = this.Owner as Form1;
             if (f != null)
-                f.UP_Exception(m.sourceImage);
+                f.UP_Exception(m.sourceImage.Clone());
         }
 
         private void Interseption_Click(object sender, EventArgs e)
         {
             Form1 f = this.Owner as Form1;
             if (f != null)
-                f.UP_Interseption(m.sourceImage);
+                f.UP_Interseption(m.sourceImage.Clone());
         }
     }
 }
