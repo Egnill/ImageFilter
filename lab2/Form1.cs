@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Emgu.CV;
+using Emgu.CV.UI;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
@@ -21,6 +22,8 @@ namespace lab2
         public Form1()
         {
             InitializeComponent();
+            imageBox1.FunctionalMode = ImageBox.FunctionalModeOption.Minimum;
+            imageBox2.FunctionalMode = ImageBox.FunctionalModeOption.Minimum;
         }
         //-----------------------------------------
         public void UP_Channel(int channel_Index = -1)
@@ -121,6 +124,11 @@ namespace lab2
         private void medianBlurToolStripMenuItem_Click(object sender, EventArgs e)
         {
             imageBox2.Image = m.Median_Blur();
+        }
+
+        private void windowFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            imageBox2.Image = m.Sharpen();
         }
     }
 }

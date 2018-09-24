@@ -37,7 +37,7 @@ namespace lab2
             {
                 string fileName = openFileDialog.FileName;
                 sourceImage = new Image<Bgr, byte>(fileName).Resize(500, 500, Inter.Linear);
-                //this.result = sourceImage;
+                //this.result = sourceImage.Clone();
             }
         }
         // for Testing
@@ -119,7 +119,7 @@ namespace lab2
                                                              0.114 * sourceImage.Data[y, x, 0]);
                 }
             }
-
+            //result = grayImage.Convert<Bgr, byte>();
             return grayImage;
         }
 
@@ -254,7 +254,7 @@ namespace lab2
 
         public Image<Hsv, byte> HSV()
         {
-            Image<Hsv, byte> result = sourceImage.Convert<Hsv, byte>();
+            Image<Hsv, byte> result = sourceImage.Convert<Hsv, byte>().Clone();
 
             for (int x = 0; x < result.Width; x++)
             {
@@ -273,7 +273,6 @@ namespace lab2
         {
             Image<Bgr, byte> result = sourceImage.Clone();
             List<byte> helper_sort = new List<byte>();
-            byte middle_value = 0; ;
 
             for (byte channel = 0; channel < result.NumberOfChannels; channel++)
             {
@@ -285,26 +284,49 @@ namespace lab2
                         {
                             for (sbyte j = -1; j < 2; j++)
                             {
-                                helper_sort.Add(result.Data[y + j, x + i, channel]);
+                                helper_sort.Add(sourceImage.Data[y + j, x + i, channel]);
                             }
                         }
 
                         helper_sort.Sort();
-                        middle_value = helper_sort[4];
-
-                        for (sbyte i = -1; i < 1; i++)
-                        {
-                            for (sbyte j = -1; j < 1; j++)
-                            {
-                                result.Data[y + j, x + i, channel] = middle_value;
-                            }
-                        }
+                        result.Data[y, x, channel] = helper_sort[4];
 
                         helper_sort.Clear();
                     }
                 }
             }
 
+            return result;
+        }
+
+        public Image<Bgr, byte> Sharpen()
+        {
+            sbyte[,] window_filter = { { -1, -1, -1 },
+                                       { -1, 9, -1 },
+                                       { -1, -1, -1 } };
+            Image<Bgr, byte> result = sourceImage.Clone();
+            double value = 0;
+
+            for (byte channel = 0; channel < result.NumberOfChannels; channel++)
+            {
+                for (int x = 1; x < result.Width - 2; x++)
+                {
+                    for (int y = 1; y < result.Height - 2; y++)
+                    {
+                        for (sbyte i = -1; i < 2; i++)
+                        {
+                            for (sbyte j = -1; j < 2; j++)
+                            {
+                                value += ((sourceImage.Data[y + j, x + i, channel] * window_filter[j + 1, i + 1]) / 9);
+                            }
+                        }
+
+                        result.Data[y, x, channel] = test_color(value);
+                        value = 0;
+                    }
+                }
+            }
+            
             return result;
         }
     }

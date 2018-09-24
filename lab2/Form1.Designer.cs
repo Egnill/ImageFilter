@@ -144,7 +144,8 @@
             // 
             this.windowFilterToolStripMenuItem.Name = "windowFilterToolStripMenuItem";
             this.windowFilterToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
-            this.windowFilterToolStripMenuItem.Text = "Window Filter";
+            this.windowFilterToolStripMenuItem.Text = "Sharpen";
+            this.windowFilterToolStripMenuItem.Click += new System.EventHandler(this.windowFilterToolStripMenuItem_Click);
             // 
             // watercolorFilterToolStripMenuItem
             // 
