@@ -271,7 +271,7 @@ namespace lab2
 
         public Image<Bgr, byte> Median_Blur()
         {
-            Image<Bgr, byte> result = sourceImage.Clone();
+            /*Image<Bgr, byte> result = sourceImage.Clone();
             List<byte> helper_sort = new List<byte>();
 
             for (byte channel = 0; channel < result.NumberOfChannels; channel++)
@@ -296,6 +296,34 @@ namespace lab2
                 }
             }
 
+            return result;*/
+
+            /*sbyte[,] window_filter = { { 1, 1, 1 },
+                                       { 1, 1, 1 },
+                                       { 1, 1, 1 } };*/
+            Image<Bgr, byte> result = sourceImage.Clone();
+            double value = 0;
+
+            for (byte channel = 0; channel < result.NumberOfChannels; channel++)
+            {
+                for (int x = 1; x < result.Width - 1; x++)
+                {
+                    for (int y = 1; y < result.Height - 1; y++)
+                    {
+                        for (sbyte i = -1; i < 2; i++)
+                        {
+                            for (sbyte j = -1; j < 2; j++)
+                            {
+                                value += sourceImage.Data[y + j, x + i, channel] /** window_filter[j + 1, i + 1]*/;
+                            }
+                        }
+
+                        result.Data[y, x, channel] = test_color(value / 9);
+                        value = 0;
+                    }
+                }
+            }
+
             return result;
         }
 
@@ -304,6 +332,12 @@ namespace lab2
             sbyte[,] window_filter = { { -1, -1, -1 },
                                        { -1, 9, -1 },
                                        { -1, -1, -1 } };
+            /*sbyte[,] window_filter = { { 0, 0, 0 },
+                                       { -4, 4, 0 },
+                                       { 0, 0, 0 } };*/
+            /*sbyte[,] window_filter = { { -4, -2, 0 },
+                                       { -2, 1, 2 },
+                                       { 0, 2, 4 } };*/
             Image<Bgr, byte> result = sourceImage.Clone();
             double value = 0;
 
@@ -317,7 +351,7 @@ namespace lab2
                         {
                             for (sbyte j = -1; j < 2; j++)
                             {
-                                value += ((sourceImage.Data[y + j, x + i, channel] * window_filter[j + 1, i + 1]) / 9);
+                                value += sourceImage.Data[y + j, x + i, channel] * window_filter[j + 1, i + 1];
                             }
                         }
 
