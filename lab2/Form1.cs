@@ -33,14 +33,12 @@ namespace lab2
 
         public void UP_Brightness(int BC)
         {
-            m.brightness = BC;
-            imageBox2.Image = m.Brightness();
+            imageBox2.Image = m.Brightness(BC);
         }
 
         public void UP_Contrast(int BC)
         {
-            m.contrast = BC;
-            imageBox2.Image = m.Contrast();
+            imageBox2.Image = m.Contrast(BC);
         }
 
         public void UP_Addition(Image<Bgr, byte> image)

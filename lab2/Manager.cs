@@ -119,10 +119,10 @@ namespace lab2
                                                              0.114 * sourceImage.Data[y, x, 0]);
                 }
             }
-            //result = grayImage.Convert<Bgr, byte>();
+            
             return grayImage;
         }
-
+        // Sepia
         public Image<Bgr, byte> Sepia()
         {
             Image<Bgr, byte> result = sourceImage.Clone();
@@ -141,15 +141,43 @@ namespace lab2
                     result.Data[y, x, 2] = test_color(red * 0.393 + green * 0.769 + blue * 0.189);
                 }
             }
-            
             return result;
         }
 
-        public Image<Bgr, byte> Brightness()
+        /*private Image<Bgr, byte> SepiaInClass(Image<Bgr, byte> result)
+        {
+            byte blue, green, red;
+
+            for (int x = 0; x < result.Width; x++)
+            {
+                for (int y = 0; y < result.Height; y++)
+                {
+                    blue = result.Data[y, x, 0];
+                    green = result.Data[y, x, 1];
+                    red = result.Data[y, x, 2];
+
+                    result.Data[y, x, 0] = test_color(red * 0.272 + green * 0.534 + blue * 0.131);
+                    result.Data[y, x, 1] = test_color(red * 0.349 + green * 0.686 + blue * 0.168);
+                    result.Data[y, x, 2] = test_color(red * 0.393 + green * 0.769 + blue * 0.189);
+                }
+            }
+
+            return result;
+        }*/
+        //---------------------------------------------------------------
+        // Brightness
+        public Image<Bgr, byte> Brightness(int BrightnessValue)
         {
             Image<Bgr, byte> result = sourceImage.Clone();
-            int color;
+            brightness = BrightnessValue;
+            result = ContrastInClass(result);
+            return BrightnessInClass(result);
+        }
 
+        private Image<Bgr, byte> BrightnessInClass(Image<Bgr, byte> result)
+        {
+            int color;
+            
             for (int channel = 0; channel < result.NumberOfChannels; channel++)
             {
                 for (int x = 0; x < result.Width; x++)
@@ -165,13 +193,21 @@ namespace lab2
 
             return result;
         }
-
-        public Image<Bgr, byte> Contrast()
+        //--------------------------------------------------------------------
+        // Contrast
+        public Image<Bgr, byte> Contrast(int ContrastValue)
         {
             Image<Bgr, byte> result = sourceImage.Clone();
-            if (contrast == 0) contrast = 1;
-            int color;
+            if (ContrastValue == 0) contrast = 1;
+            else contrast = ContrastValue;
+            result = BrightnessInClass(result);
+            return ContrastInClass(result);
+        }
 
+        private Image<Bgr, byte> ContrastInClass(Image<Bgr, byte> result)
+        {
+            int color;
+            
             for (int channel = 0; channel < result.NumberOfChannels; channel++)
             {
                 for (int x = 0; x < result.Width; x++)
@@ -187,7 +223,7 @@ namespace lab2
 
             return result;
         }
-
+        //--------------------------------------------------------------------
         public Image<Bgr, byte> Addition(Image<Bgr, byte> additional_image)
         {
             Image<Bgr, byte> result = sourceImage.Clone();
@@ -276,20 +312,20 @@ namespace lab2
 
             for (byte channel = 0; channel < result.NumberOfChannels; channel++)
             {
-                for (int x = 1; x < result.Width - 1; x++)
+                for (int x = 2; x < result.Width - 2; x++)
                 {
-                    for (int y = 1; y < result.Height - 1; y++)
+                    for (int y = 2; y < result.Height - 2; y++)
                     {
-                        for (sbyte i = -1; i < 2; i++)
+                        for (sbyte i = -2; i < 3; i++)
                         {
-                            for (sbyte j = -1; j < 2; j++)
+                            for (sbyte j = -2; j < 3; j++)
                             {
                                 helper_sort.Add(sourceImage.Data[y + j, x + i, channel]);
                             }
                         }
 
                         helper_sort.Sort();
-                        result.Data[y, x, channel] = helper_sort[4];
+                        result.Data[y, x, channel] = helper_sort[12];
 
                         helper_sort.Clear();
                     }
@@ -329,15 +365,21 @@ namespace lab2
 
         public Image<Bgr, byte> Sharpen()
         {
-            sbyte[,] window_filter = { { -1, -1, -1 },
+            /*sbyte[,] window_filter = { { -1, -1, -1 },
                                        { -1, 9, -1 },
-                                       { -1, -1, -1 } };
-            /*sbyte[,] window_filter = { { 0, 0, 0 },
+                                       { -1, -1, -1 } };*/
+            sbyte[,] window_filter = { { 0, 0, 0 },
                                        { -4, 4, 0 },
-                                       { 0, 0, 0 } };*/
+                                       { 0, 0, 0 } };
             /*sbyte[,] window_filter = { { -4, -2, 0 },
                                        { -2, 1, 2 },
                                        { 0, 2, 4 } };*/
+            /*sbyte[,] window_filter = { { 1, 1, -1 },
+                                       { 1, 1, -1 },
+                                       { 1, -1, -1 } };*/
+            /*sbyte[,] window_filter = { { -1, 0, 0 },
+                                       { 0, 0, 0 },
+                                       { 0, 0, 1 } };*/
             Image<Bgr, byte> result = sourceImage.Clone();
             double value = 0;
 
@@ -351,7 +393,7 @@ namespace lab2
                         {
                             for (sbyte j = -1; j < 2; j++)
                             {
-                                value += sourceImage.Data[y + j, x + i, channel] * window_filter[j + 1, i + 1];
+                                value += sourceImage.Data[y + j, x + i, channel] * window_filter[j + 1, i + 1] / 9;
                             }
                         }
 
