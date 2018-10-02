@@ -144,7 +144,7 @@
             // 
             this.windowFilterToolStripMenuItem.Name = "windowFilterToolStripMenuItem";
             this.windowFilterToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
-            this.windowFilterToolStripMenuItem.Text = "Sharpen";
+            this.windowFilterToolStripMenuItem.Text = "Window filters";
             this.windowFilterToolStripMenuItem.Click += new System.EventHandler(this.windowFilterToolStripMenuItem_Click);
             // 
             // watercolorFilterToolStripMenuItem
@@ -152,12 +152,14 @@
             this.watercolorFilterToolStripMenuItem.Name = "watercolorFilterToolStripMenuItem";
             this.watercolorFilterToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.watercolorFilterToolStripMenuItem.Text = "Watercolor Filter";
+            this.watercolorFilterToolStripMenuItem.Click += new System.EventHandler(this.watercolorFilterToolStripMenuItem_Click);
             // 
             // cartoToolStripMenuItem
             // 
             this.cartoToolStripMenuItem.Name = "cartoToolStripMenuItem";
             this.cartoToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.cartoToolStripMenuItem.Text = "Cartoon Filter";
+            this.cartoToolStripMenuItem.Click += new System.EventHandler(this.cartoToolStripMenuItem_Click);
             // 
             // menuStrip1
             // 

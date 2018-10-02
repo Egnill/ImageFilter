@@ -51,9 +51,9 @@ namespace lab2
             imageBox2.Image = m.Exception(image);
         }
 
-        public void UP_Interseption(Image<Bgr, byte> image)
+        public void UP_Intersection(Image<Bgr, byte> image)
         {
-            imageBox2.Image = m.Interseption(image);
+            imageBox2.Image = m.Intercsection(image);
         }
 
         public void UP_Hue(int hue)
@@ -72,6 +72,21 @@ namespace lab2
         {
             m.value = value;
             imageBox2.Image = m.HSV();
+        }
+
+        public void UP_WindowFilter(int[,] window_filter)
+        {
+            imageBox2.Image = m.WindowFilter(window_filter);
+        }
+
+        public void UP_WaterColor(Image<Bgr, byte> image, int brightness, double contrast)
+        {
+            imageBox2.Image = m.WaterColor(image, brightness, contrast);
+        }
+
+        public void UP_CartoonFilter(int thresholdValue)
+        {
+            imageBox2.Image = m.Cartoon(thresholdValue);
         }
         //-----------------------------------------
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -126,7 +141,23 @@ namespace lab2
 
         private void windowFilterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            imageBox2.Image = m.Sharpen();
+            Window_filters wf = new Window_filters();
+            wf.Owner = this;
+            wf.Show();
+        }
+
+        private void watercolorFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WaterColor w = new WaterColor();
+            w.Owner = this;
+            w.Show();
+        }
+
+        private void cartoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CartoonFilter cf = new CartoonFilter();
+            cf.Owner = this;
+            cf.Show();
         }
     }
 }

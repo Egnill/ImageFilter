@@ -69,6 +69,12 @@
     <Compile Include="B_C.Designer.cs">
       <DependentUpon>B_C.cs</DependentUpon>
     </Compile>
+    <Compile Include="CartoonFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CartoonFilter.Designer.cs">
+      <DependentUpon>CartoonFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,11 +96,26 @@
     <Compile Include="RGB.Designer.cs">
       <DependentUpon>RGB.cs</DependentUpon>
     </Compile>
+    <Compile Include="WaterColor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaterColor.Designer.cs">
+      <DependentUpon>WaterColor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windowfilters.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windowfilters.Designer.cs">
+      <DependentUpon>Windowfilters.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AEI.resx">
       <DependentUpon>AEI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="B_C.resx">
       <DependentUpon>B_C.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CartoonFilter.resx">
+      <DependentUpon>CartoonFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -113,6 +134,12 @@
     </Compile>
     <EmbeddedResource Include="RGB.resx">
       <DependentUpon>RGB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaterColor.resx">
+      <DependentUpon>WaterColor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windowfilters.resx">
+      <DependentUpon>Windowfilters.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

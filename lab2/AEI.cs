@@ -43,7 +43,7 @@ namespace lab2
         {
             Form1 f = this.Owner as Form1;
             if (f != null)
-                f.UP_Interseption(m.sourceImage.Clone());
+                f.UP_Intersection(m.sourceImage.Clone());
         }
     }
 }
