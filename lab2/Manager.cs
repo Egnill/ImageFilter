@@ -15,10 +15,9 @@ namespace lab2
     class Manager
     {
         public Image<Bgr, byte> sourceImage = null;
-        //private Image<Bgr, byte> result = null;
         // for function Brightnes & Contrast
-        public int brightness = 0;
-        public double contrast = 1;
+        private int brightness = 0;
+        private double contrast = 1;
         //------------------------
         // for HSV
         public int hue = 0;
@@ -26,40 +25,36 @@ namespace lab2
         public int value = 0;
         public int coeff = 1;
         //--------------------
-        // for Cartoon Filter
-        private int thresholdValue = 3;
-        //-----------------------
-        public Manager() { }
 
         public void OpenI()
         {
-            var openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "File Image (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
-            var result = openFileDialog.ShowDialog();
-            if (result == DialogResult.OK)
+            try
             {
+                var openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "File Image (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+                openFileDialog.ShowDialog();
                 string fileName = openFileDialog.FileName;
                 sourceImage = new Image<Bgr, byte>(fileName).Resize(500, 500, Inter.Linear);
-                //this.result = sourceImage.Clone();
+            }
+            catch (ArgumentException e)
+            {
+                MessageBox.Show(e.Message, "ERROR");
             }
         }
         // for Testing
-        private byte test_color(double test, int min, int max)
+        private byte test_color(double test, int min = 0, int max = 255)
         {
             if (test > max)
             {
                 return (byte)max;
             }
+            else if (test < min)
+            {
+                return (byte)min;
+            }
             else
             {
-                if (test < min)
-                {
-                    return (byte)min;
-                }
-                else
-                {
-                    return (byte)test;
-                }
+               return (byte)test;
             }
         }
         //------------------------------------------
@@ -77,10 +72,10 @@ namespace lab2
             return channel;
         }
 
-        public Image<Gray, byte> Black_White()
+        public Image<Gray, byte> Black_White(Image<Bgr, byte> sI)
         {
             if (sourceImage == null) { return null; }
-            Image<Gray, byte> grayImage = new Image<Gray, byte>(sourceImage.Size);
+            Image<Gray, byte> grayImage = new Image<Gray, byte>(sI.Size);
 
             for (int x = 0; x < grayImage.Width; x++)
             {
@@ -92,7 +87,7 @@ namespace lab2
                 }
             }
             
-            return grayImage.Clone();
+            return grayImage;
         }
         // Sepia
         public Image<Bgr, byte> Sepia()
@@ -104,43 +99,22 @@ namespace lab2
             {
                 for (int y = 0; y < result.Height; y++)
                 {
-                    blue = result.Data[y, x, 0];
-                    green = result.Data[y, x, 1];
-                    red = result.Data[y, x, 2];
-
-                    result.Data[y, x, 0] = test_color(red * 0.272 + green * 0.534 + blue * 0.131, 0, 255);
-                    result.Data[y, x, 1] = test_color(red * 0.349 + green * 0.686 + blue * 0.168, 0, 255);
-                    result.Data[y, x, 2] = test_color(red * 0.393 + green * 0.769 + blue * 0.189, 0, 255);
-                }
-            }
-            return result;
-        }
-
-        /*private Image<Bgr, byte> SepiaInClass(Image<Bgr, byte> result)
-        {
-            byte blue, green, red;
-
-            for (int x = 0; x < result.Width; x++)
-            {
-                for (int y = 0; y < result.Height; y++)
-                {
-                    blue = result.Data[y, x, 0];
-                    green = result.Data[y, x, 1];
-                    red = result.Data[y, x, 2];
+                    blue = sourceImage.Data[y, x, 0];
+                    green = sourceImage.Data[y, x, 1];
+                    red = sourceImage.Data[y, x, 2];
 
                     result.Data[y, x, 0] = test_color(red * 0.272 + green * 0.534 + blue * 0.131);
                     result.Data[y, x, 1] = test_color(red * 0.349 + green * 0.686 + blue * 0.168);
                     result.Data[y, x, 2] = test_color(red * 0.393 + green * 0.769 + blue * 0.189);
                 }
             }
-
             return result;
-        }*/
+        }
         //---------------------------------------------------------------
         // Brightness
         public Image<Bgr, byte> Brightness(int BrightnessValue)
         {
-            Image<Bgr, byte> result = sourceImage.Clone();
+            var result = sourceImage.Clone();
             brightness = BrightnessValue;
             result = ContrastInClass(result);
             return BrightnessInClass(result);
@@ -165,14 +139,20 @@ namespace lab2
 
             return result;
         }
-        //--------------------------------------------------------------------
+        //---------------------------------------------------------------------
         // Contrast
         public Image<Bgr, byte> Contrast(int ContrastValue)
         {
             Image<Bgr, byte> result = sourceImage.Clone();
-            
-            if (ContrastValue == 0) contrast = 1;
-            else contrast = ContrastValue;
+
+            if (ContrastValue == 0)
+            {
+                contrast = 1;
+            }
+            else
+            {
+                contrast = 1 + ContrastValue / 10;
+            }
 
             result = BrightnessInClass(result);
             return ContrastInClass(result);
@@ -190,7 +170,7 @@ namespace lab2
                     {
                         color = result.Data[y, x, channel];
                         color *= contrast;
-                        result.Data[y, x, channel] = test_color(color, 0, 255);
+                        result.Data[y, x, channel] = test_color(color);
                     }
                 }
             }
@@ -244,15 +224,16 @@ namespace lab2
 
             return result;
         }
-
-        public Image<Bgr, byte> Intercsection(Image<Bgr, byte> additional_image)
+        // Intersection
+        public Image<Bgr, byte> Intersection(Image<Bgr, byte> additional_image)
         {
             Image<Bgr, byte> result = sourceImage.Clone();
             return IntersectionInClass(result, additional_image);
         }
 
-        private Image<Bgr, byte> IntersectionInClass(Image<Bgr, byte> result, Image<Bgr, byte> additional_image)
+        private Image<T, byte> IntersectionInClass<T>(Image<T, byte> result, Image<T, byte> additional_image) where T : struct, IColor
         {
+            Image<T, byte> res = new Image<T, byte>(result.Size);
             for (int channel = 0; channel < result.NumberOfChannels; channel++)
             {
                 for (int x = 0; x < result.Width; x++)
@@ -261,15 +242,19 @@ namespace lab2
                     {
                         if (additional_image.Data[y, x, channel] == 0)
                         {
-                            result.Data[y, x, channel] = 0;
+                            res.Data[y, x, channel] = 0;
+                        }
+                        if (additional_image.Data[y, x, channel] > 0)
+                        {
+                            res.Data[y, x, channel] = result.Data[y, x, channel];
                         }
                     }
                 }
             }
 
-            return result;
+            return res;
         }
-
+        //------------------------------------------------------------------------------------------------------
         public Image<Hsv, byte> HSV()
         {
             Image<Hsv, byte> result = sourceImage.Convert<Hsv, byte>();
@@ -294,7 +279,7 @@ namespace lab2
             return Median_BlurInClass(result);
         }
 
-        private Image<Bgr, byte> Median_BlurInClass(Image<Bgr, byte> result)
+        private Image<T, byte> Median_BlurInClass<T> (Image<T, byte> result) where T : struct, IColor 
         {
             List<byte> helper_sort = new List<byte>();
 
@@ -320,7 +305,7 @@ namespace lab2
                 }
             }
 
-            return result.Clone();
+            return result;
 
              /*sbyte[,] window_filter = { { 1, 1, 1 },
                                         { 1, 1, 1 },
@@ -352,7 +337,7 @@ namespace lab2
         //--------------------------------------------
         public Image<Bgr, byte> WindowFilter(int[,] window_filter)
         {
-            Image<Gray, byte> result = Black_White(), sI = Black_White();
+            Image<Gray, byte> result = Black_White(sourceImage), sI = Black_White(sourceImage);
             double value = 0;
             for (byte channel = 0; channel < result.NumberOfChannels; channel++)
             {
@@ -393,16 +378,21 @@ namespace lab2
 
         public Image<Bgr, byte> Cartoon(int thresholdValue)
         {
-            if (thresholdValue % 2 == 1)
+            try
             {
-                this.thresholdValue = thresholdValue;
-            }
-            Image<Gray, byte> resultBW = Black_White().Clone();
-            resultBW = Median_BlurInClass(resultBW.Convert<Bgr, byte>()).Convert<Gray, byte>().Clone();
-            resultBW = resultBW.ThresholdAdaptive(new Gray(100), AdaptiveThresholdType.MeanC, ThresholdType.Binary, this.thresholdValue, new Gray(0.03)).Clone();
-            Image<Bgr, byte> result = IntersectionInClass(sourceImage, resultBW.Convert<Bgr, byte>()).Clone();
+                var resultBW = Black_White(sourceImage);
+                var BLUREDiMAGE = Median_BlurInClass(resultBW);
+                var bin = BLUREDiMAGE.ThresholdAdaptive(new Gray(100), AdaptiveThresholdType.MeanC, ThresholdType.Binary, thresholdValue, new Gray(0.03));
+                var result = IntersectionInClass(sourceImage, bin.Convert<Bgr, byte>());
 
-            return result;
+                return result;
+            }
+            catch (CvException)
+            {
+                MessageBox.Show("Threshold Value % 2 == 1 and Threshold Value > 1", "ERROR");
+                return sourceImage;
+            }
+            
         }
     }
 }

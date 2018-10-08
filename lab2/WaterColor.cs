@@ -20,9 +20,20 @@ namespace lab2
 
         private void Apply_Click(object sender, EventArgs e)
         {
-            Form1 f = this.Owner as Form1;
-            if (f != null)
-                f.UP_WaterColor(m.sourceImage.Clone(), int.Parse(textBox1.Text), double.Parse(textBox2.Text));
+            try
+            {
+                Form1 f = this.Owner as Form1;
+                if (f != null)
+                    f.UP_WaterColor(m.sourceImage.Clone(), int.Parse(textBox1.Text), double.Parse(textBox2.Text));
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Fractional numbers must be entered through ','", "ERROR");
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Select overlay mask", "ERROR");
+            }
         }
 
         private void Open_Click(object sender, EventArgs e)

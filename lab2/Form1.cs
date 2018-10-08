@@ -53,7 +53,7 @@ namespace lab2
 
         public void UP_Intersection(Image<Bgr, byte> image)
         {
-            imageBox2.Image = m.Intercsection(image);
+            imageBox2.Image = m.Intersection(image);
         }
 
         public void UP_Hue(int hue)
@@ -105,7 +105,7 @@ namespace lab2
 
         private void blackWhiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            imageBox2.Image = m.Black_White();
+            imageBox2.Image = m.Black_White(m.sourceImage);
         }
 
         private void sepiToolStripMenuItem_Click(object sender, EventArgs e)
@@ -158,6 +158,12 @@ namespace lab2
             CartoonFilter cf = new CartoonFilter();
             cf.Owner = this;
             cf.Show();
+        }
+
+        private void updateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            imageBox1.Image = m.sourceImage;
+            imageBox2.Image = m.sourceImage;
         }
     }
 }

@@ -15,14 +15,14 @@ namespace lab2
         public CartoonFilter()
         {
             InitializeComponent();
+            textBox1.Text = "3";
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void Apply_Click(object sender, EventArgs e)
         {
-            label2.Text = Convert.ToString(trackBar1.Value);
             Form1 f = this.Owner as Form1;
             if (f != null)
-                f.UP_CartoonFilter(trackBar1.Value);
+                f.UP_CartoonFilter(Convert.ToInt32(textBox1.Text));
         }
     }
 }
